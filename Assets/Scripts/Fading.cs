@@ -28,4 +28,3 @@ public class Fading : MonoBehaviour {
 		BeginFade (-1);
 	}
 }
-
