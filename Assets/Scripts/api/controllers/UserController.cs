@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 namespace ApiController{
 	public class UserController : MonoBehaviour {
 		public HttpHandler httpHandlerScript = new HttpHandler();
+		public GameManager gameManager;
+
+		public Text txtNickname;
+		public Text txtPassword;
+		public Text txtEmail;
 		public void GetAll(){
 			httpHandlerScript.GET(Config.apiUrl+"user/getAll",CallBackGetAll);
 		}
@@ -12,13 +18,18 @@ namespace ApiController{
 			int user_id = 1;
 			httpHandlerScript.GET(Config.apiUrl+"user/getById/"+user_id.ToString(),CallBackGetById);
 		}
+		public void Login(string nickname, string password){
+			WWWForm form = new WWWForm();
+			form.AddField("nickname",nickname);
+			form.AddField("password",password);
+			httpHandlerScript.POST(Config.apiUrl+"user/login",CallBackLogin,form);
+		}
 		//public void Create(UserModel user){
 		public void Create(){
 			WWWForm form = new WWWForm();
-			int rnd = Random.Range (1, 3000);
-			string nickname = "ASDFG"+ rnd.ToString();
-			UserModel newUser = new UserModel (0, nickname, "123456789", "83764555", "wizzarn@gmail.com", "");
+			UserModel newUser = new UserModel (0, txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "");
 			form.AddField("nickname",newUser.nickname);
+			form.AddField("password",newUser.password);
 			form.AddField("device_id",newUser.device_id);
 			form.AddField("phone",newUser.phone);
 			form.AddField("email",newUser.email);
@@ -30,12 +41,16 @@ namespace ApiController{
 			WWWForm form = new WWWForm();
 			int rnd = Random.Range (1, 3000);
 			string nickname = "ASDFG"+ rnd.ToString();
-			UserModel newUser = new UserModel (0, nickname, "000000", "111111", "wizzarn@gmail.com", "");
+			UserModel newUser = new UserModel (0, nickname, "abc123","000000", "111111", "wizzarn@gmail.com", "");
 			form.AddField("nickname",newUser.nickname);
+			form.AddField("password",newUser.password);
 			form.AddField("device_id",newUser.device_id);
 			form.AddField("phone",newUser.phone);
 			form.AddField("email",newUser.email);
 			httpHandlerScript.POST(Config.apiUrl+"user/update/"+user_id.ToString(),CallBackUpdate,form);
+		}
+		public void Logout(){
+			httpHandlerScript.GET(Config.apiUrl+"user/logout",CallBackLogout);
 		}
 		public void Delete(){
 		}
@@ -49,9 +64,12 @@ namespace ApiController{
 			print (users);
 		}
 		void CallBackCreate(string response){
+			print (response);
 			if (response == "")
 				return;
 			UserModel user = JsonUtility.FromJson<UserModel>(response);
+			Token.SaveUser (user.nickname, user.password);
+			Login (user.nickname,txtPassword.text);
 			print (user);
 		}
 		void CallBackUpdate(string response){
@@ -71,6 +89,21 @@ namespace ApiController{
 				return;
 			UserModel user = JsonUtility.FromJson<UserModel>(response);
 			print (user);
+		}
+		void CallBackLogin(string response){
+			if (response != "wrong"){
+				Token.SaveToken (response);
+				print (response);
+				gameManager.MainScene ();
+			}
+		}
+		void CallBackLogout(string response){
+			if (response == "ok"){
+				Token.SaveToken ("");
+				print (response);
+				gameManager.LoginScene();
+			}
+
 		}
 	}
 }

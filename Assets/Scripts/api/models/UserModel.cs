@@ -10,6 +10,7 @@ namespace ApiController{
 	public class UserModel{
 		public int user_id;
 		public string nickname;
+		public string password;
 		public string device_id;
 		public string phone;
 		public string email;
@@ -17,9 +18,10 @@ namespace ApiController{
 		public UserModel(){
 		}
 
-		public UserModel(int user_id, string nickname, string device_id, string phone, string email, string created_date){
+		public UserModel(int user_id, string nickname, string password, string device_id, string phone, string email, string created_date){
 			this.user_id = user_id;
 			this.nickname = nickname;
+			this.password = password;
 			this.device_id = device_id;
 			this.phone = phone;
 			this.email = email;
