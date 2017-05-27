@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 namespace ApiController{
+
 	public class UserController : MonoBehaviour {
 		public HttpHandler httpHandlerScript = new HttpHandler();
 		public GameManager gameManager;
