@@ -6,12 +6,24 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Armature
+    100004: Body
+    100006: Control
+    100008: Head
+    100010: slime_body
     400000: //RootNode
+    400002: Armature
+    400004: Body
+    400006: Control
+    400008: Head
+    400010: slime_body
     2300000: //RootNode
     3300000: //RootNode
     4300000: Grid
+    4300002: slime_body
     7400000: Default Take
     9500000: //RootNode
+    13700000: slime_body
   materials:
     importMaterials: 1
     materialName: 0
