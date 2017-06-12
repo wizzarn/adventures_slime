@@ -14,7 +14,6 @@ namespace ApiController{
 		public void GetAll(){
 			httpHandlerScript.GET(Config.apiUrl+"user/getAll",CallBackGetAll);
 		}
-		//public void GetById(int user_id){
 		public void GetById(){
 			int user_id = 1;
 			httpHandlerScript.GET(Config.apiUrl+"user/getById/"+user_id.ToString(),CallBackGetById);
@@ -25,7 +24,6 @@ namespace ApiController{
 			form.AddField("password",password);
 			httpHandlerScript.POST(Config.apiUrl+"user/login",CallBackLogin,form);
 		}
-		//public void Create(UserModel user){
 		public void Create(){
 			WWWForm form = new WWWForm();
 			UserModel newUser = new UserModel (0, txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "");
@@ -36,7 +34,6 @@ namespace ApiController{
 			form.AddField("email",newUser.email);
 			httpHandlerScript.POST(Config.apiUrl+"user/store",CallBackCreate,form);
 		}
-		//public void Update(int user_id, UserModel user){
 		public void UpdateUser(){
 			int user_id = 1;
 			WWWForm form = new WWWForm();
@@ -55,8 +52,6 @@ namespace ApiController{
 		}
 		public void Delete(){
 		}
-
-
 		void CallBackGetAll(string response){
 			if (response == "")
 				return;
