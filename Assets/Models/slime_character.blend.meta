@@ -11,19 +11,53 @@ ModelImporter:
     100006: Control
     100008: Head
     100010: slime_body
+    100012: armature-eyebrows
+    100014: armature-eyebrowsb
+    100016: armature-eyes
+    100018: armature-eyesb
+    100020: armature-face
+    100022: armature-pupils
+    100024: armature-pupilsb
+    100026: armature-slime
+    100028: eyebrow-base
+    100030: eyebrow-control
+    100032: eyes-base
+    100034: eyes-control
+    100036: eyes_1_w_bkg
+    100038: main
+    100040: pupils-base
+    100042: pupils-control
     400000: //RootNode
     400002: Armature
     400004: Body
     400006: Control
     400008: Head
     400010: slime_body
+    400012: armature-eyebrows
+    400014: armature-eyebrowsb
+    400016: armature-eyes
+    400018: armature-eyesb
+    400020: armature-face
+    400022: armature-pupils
+    400024: armature-pupilsb
+    400026: armature-slime
+    400028: eyebrow-base
+    400030: eyebrow-control
+    400032: eyes-base
+    400034: eyes-control
+    400036: eyes_1_w_bkg
+    400038: main
+    400040: pupils-base
+    400042: pupils-control
     2300000: //RootNode
     3300000: //RootNode
     4300000: Grid
     4300002: slime_body
+    4300004: eyes_1_w_bkg
     7400000: Default Take
     9500000: //RootNode
     13700000: slime_body
+    13700002: eyes_1_w_bkg
   materials:
     importMaterials: 1
     materialName: 0
