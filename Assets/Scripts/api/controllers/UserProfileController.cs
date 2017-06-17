@@ -17,7 +17,7 @@ namespace ApiController{
 		public void getByUserIds(string ids){
 			httpHandlerScript.GET(Config.apiUrl+"usersProfiles/getByUserIds/"+ids,CallBackGetByUserIds);
 		}
-		public void createUserProfile(UserProfileModel userProfileModel){
+		public void create(UserProfileModel userProfileModel){
 			WWWForm form = new WWWForm();
 			form.AddField("user_id",userProfileModel.user_id);
 			form.AddField("level",userProfileModel.level);
@@ -44,7 +44,7 @@ namespace ApiController{
 
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/store",CallBackCreate,form);
 		}
-		public void updateUserProfile(UserProfileModel userProfileModel, string id){
+		public void update_(UserProfileModel userProfileModel, string id){
 			WWWForm form = new WWWForm();
 			form.AddField("user_id",userProfileModel.user_id);
 			form.AddField("level",userProfileModel.level);
@@ -71,7 +71,7 @@ namespace ApiController{
 
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/update/"+id,CallBackUpdate,form);
 		}
-		public void deleteUserProfile(string id){
+		public void delete(string id){
 			WWWForm form = new WWWForm();
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/delete/"+id,CallBackDelete,form);
 		}
