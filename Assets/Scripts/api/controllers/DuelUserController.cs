@@ -48,7 +48,7 @@ namespace ApiController{
 			httpHandlerScript.GET(Config.apiUrl+"duelsUsers/getAllDuelsByUserId/"+id,CallBackGetAllDuelsByUserId);
 		}
 		public void getWonDuelsByUserId(string id){
-			httpHandlerScript.GET(Config.apiUrl+"duelsUsers/getWonDuelsByUserId/"+ids,CallBackGetWonDuelsByUserId);
+			httpHandlerScript.GET(Config.apiUrl+"duelsUsers/getWonDuelsByUserId/"+id,CallBackGetWonDuelsByUserId);
 		}
 		public void setCompleted(string id){
 			WWWForm form = new WWWForm();
