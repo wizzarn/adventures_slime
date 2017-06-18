@@ -12,6 +12,10 @@ ModelImporter:
     100008: Head_end
     100010: slime_body
     100012: //RootNode
+    100014: Eyebrow_control
+    100016: Eyebrow_control_end
+    100018: pupils_control
+    100020: pupils_control_end
     400000: armature-slime
     400002: Body
     400004: Control
@@ -19,6 +23,10 @@ ModelImporter:
     400008: Head_end
     400010: slime_body
     400012: //RootNode
+    400014: Eyebrow_control
+    400016: Eyebrow_control_end
+    400018: pupils_control
+    400020: pupils_control_end
     4300000: slime_body
     9500000: //RootNode
     13700000: slime_body
