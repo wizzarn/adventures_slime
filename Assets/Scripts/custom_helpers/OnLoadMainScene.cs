@@ -20,7 +20,6 @@ public class OnLoadMainScene : MonoBehaviour {
 			gameManagerOBJ.GetComponent<GameManager> ().InGameWakeup ();
 			flagLightEffect = "bright";
 		}
-		
 	}
 	public void SetDark(){
 		flagLightEffect = "dark";
@@ -28,7 +27,6 @@ public class OnLoadMainScene : MonoBehaviour {
 	public void SetBright(){
 		flagLightEffect = "bright";
 	}
-
 	void Update(){
 		if (flagLightEffect == "done")
 			return;

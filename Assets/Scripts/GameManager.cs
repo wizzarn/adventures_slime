@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour {
 	public SleepingUserController sleepUser;
 	public GameObject mainButtonsOBJ;
 	public GameObject wakeUpButtonOBJ;
-
+	public GameObject mainSlimeOBJ;
+	public GameObject slimeExampleOBJ;
 	public IEnumerator ChangeScene(int SceneIndex){
 		float fadeTime = GameObject.Find ("_GM").GetComponent<Fading> ().BeginFade (1);
 		yield return new WaitForSeconds (fadeTime);
@@ -47,12 +48,16 @@ public class GameManager : MonoBehaviour {
 		if (mainButtonsOBJ && wakeUpButtonOBJ) {
 			mainButtonsOBJ.SetActive (false);
 			wakeUpButtonOBJ.SetActive (true);
+			mainSlimeOBJ.SetActive (false);
+			slimeExampleOBJ.SetActive (true);
 		}
 	}
 	public void InGameWakeup(){
 		if (mainButtonsOBJ && wakeUpButtonOBJ) {
 			mainButtonsOBJ.SetActive (true);
 			wakeUpButtonOBJ.SetActive (false);
+			mainSlimeOBJ.SetActive (true);
+			slimeExampleOBJ.SetActive (false);
 		}
 	}		
 
