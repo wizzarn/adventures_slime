@@ -39,6 +39,7 @@ namespace ApiController{
 			form.AddField("latitude",userProfileModel.latitude);
 			form.AddField("shape",userProfileModel.shape);
 			form.AddField("color",userProfileModel.color);
+			form.AddField("sleeping",userProfileModel.sleeping);
 			form.AddField("eye",userProfileModel.eye);
 			form.AddField("created_date",userProfileModel.created_date);
 
@@ -66,6 +67,7 @@ namespace ApiController{
 			form.AddField("latitude",userProfileModel.latitude);
 			form.AddField("shape",userProfileModel.shape);
 			form.AddField("color",userProfileModel.color);
+			form.AddField("sleeping",userProfileModel.sleeping);
 			form.AddField("eye",userProfileModel.eye);
 			form.AddField("created_date",userProfileModel.created_date);
 

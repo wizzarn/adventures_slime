@@ -8,7 +8,12 @@ namespace ApiController{
 	public class SleepingUserController : MonoBehaviour
 	{
 		public HttpHandler httpHandlerScript = new HttpHandler();
-
+		public GameObject gameManagerOBJ;
+		OnLoadMainScene loadMainSceneScript;
+		public void Start(){
+			gameManagerOBJ = GameObject.Find ("_GM");
+			loadMainSceneScript = GameObject.Find ("OnLoadScene").GetComponent<OnLoadMainScene>();
+		}
 		public void getByUserId(string id){
 			httpHandlerScript.GET(Config.apiUrl+"sleepingUsers/getByUserId/"+id,CallBackGetByUserId);
 		}
@@ -19,11 +24,17 @@ namespace ApiController{
 		public void getByUserIds(string ids){
 			httpHandlerScript.GET(Config.apiUrl+"sleepingUsers/getByUserIds/"+ids,CallBackGetByUserIds);
 		}
-		public void sleepUser(string id){
-			httpHandlerScript.GET(Config.apiUrl+"sleepingUsers/sleepUser/"+id,CallBackSleepUser);
+		public void sleepUser(string session, string id){
+			WWWForm form = new WWWForm();
+			form.AddField ("session",session);
+			form.AddField ("id",id);
+			httpHandlerScript.POST(Config.apiUrl+"sleepingUsers/sleepUser",CallBackSleepUser,form);
 		}
-		public void wakeUpUser(string id){
-			httpHandlerScript.GET(Config.apiUrl+"sleepingUsers/wakeUpUser/"+id,CallBackWakeUpUser);
+		public void wakeUpUser(string session, string id){
+			WWWForm form = new WWWForm();
+			form.AddField ("session",session);
+			form.AddField ("id",id);
+			httpHandlerScript.POST(Config.apiUrl+"sleepingUsers/wakeUpUser",CallBackWakeUpUser, form);
 		}
 		 
 		//CALLBACKS
@@ -52,12 +63,18 @@ namespace ApiController{
 				return;
 			SleepingUserModel sleepingUser = JsonUtility.FromJson<SleepingUserModel>(response);
 			print (sleepingUser);
+			Token.SaveCustomField ("sleeping","1");
+			gameManagerOBJ.GetComponent<GameManager>().InGameSleep ();
+			loadMainSceneScript.SetDark ();
 		}
 		void CallBackWakeUpUser(string response){
 			if (response == "")
 				return;
 			SleepingUserModel sleepingUser = JsonUtility.FromJson<SleepingUserModel>(response);
 			print (sleepingUser);
+			Token.SaveCustomField ("sleeping","0");
+			gameManagerOBJ.GetComponent<GameManager>().InGameWakeup ();
+			loadMainSceneScript.SetBright ();
 		}
 	}
 

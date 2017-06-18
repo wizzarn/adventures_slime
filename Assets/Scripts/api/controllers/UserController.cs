@@ -26,12 +26,13 @@ namespace ApiController{
 		}
 		public void Create(){
 			WWWForm form = new WWWForm();
-			UserModel newUser = new UserModel (0, txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "");
+			UserModel newUser = new UserModel ("0", txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "","", "");
 			form.AddField("nickname",newUser.nickname);
 			form.AddField("password",newUser.password);
 			form.AddField("device_id",newUser.device_id);
 			form.AddField("phone",newUser.phone);
 			form.AddField("email",newUser.email);
+			form.AddField("remember_token",newUser.remember_token);
 			httpHandlerScript.POST(Config.apiUrl+"user/store",CallBackCreate,form);
 		}
 		public void UpdateUser(){
@@ -39,16 +40,17 @@ namespace ApiController{
 			WWWForm form = new WWWForm();
 			int rnd = Random.Range (1, 3000);
 			string nickname = "ASDFG"+ rnd.ToString();
-			UserModel newUser = new UserModel (0, nickname, "abc123","000000", "111111", "wizzarn@gmail.com", "");
+			UserModel newUser = new UserModel ("0", nickname, "abc123","000000", "111111", "wizzarn@gmail.com","", "","");
 			form.AddField("nickname",newUser.nickname);
 			form.AddField("password",newUser.password);
 			form.AddField("device_id",newUser.device_id);
 			form.AddField("phone",newUser.phone);
 			form.AddField("email",newUser.email);
+			form.AddField("remember_token",newUser.remember_token);
 			httpHandlerScript.POST(Config.apiUrl+"user/update/"+user_id.ToString(),CallBackUpdate,form);
 		}
-		public void Logout(){
-			httpHandlerScript.GET(Config.apiUrl+"user/logout",CallBackLogout);
+		public void Logout(string session, string id){
+			httpHandlerScript.GET(Config.apiUrl+"user/logout/"+session + "/"+id,CallBackLogout);
 		}
 		public void Delete(){
 		}
@@ -64,7 +66,6 @@ namespace ApiController{
 			if (response == "")
 				return;
 			UserModel user = JsonUtility.FromJson<UserModel>(response);
-			Token.SaveUser (user.nickname, user.password);
 			Login (user.nickname,txtPassword.text);
 			print (user);
 		}
@@ -75,8 +76,7 @@ namespace ApiController{
 			print (user);
 		}
 		void CallBackGetById(string response){
-			if (response == "")
-				return;
+			if (response == "") return;
 			UserModel user = JsonUtility.FromJson<UserModel>(response);
 			print (user);
 		}
@@ -88,14 +88,16 @@ namespace ApiController{
 		}
 		void CallBackLogin(string response){
 			if (response != "wrong"){
-				Token.SaveToken (response);
+				UserModel user = JsonUtility.FromJson<UserModel>(response);
+				Token.SaveUser(user.nickname,user.user_id,user.remember_token);
+				Token.SaveCustomField ("sleeping",user.sleeping);
 				print (response);
 				gameManager.MainScene ();
 			}
 		}
 		void CallBackLogout(string response){
 			if (response == "ok"){
-				Token.SaveToken ("");
+				Token.ClearToken ();
 				print (response);
 				gameManager.LoginScene();
 			}
