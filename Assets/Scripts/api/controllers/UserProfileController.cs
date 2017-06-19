@@ -45,6 +45,14 @@ namespace ApiController{
 
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/store",CallBackCreate,form);
 		}
+		public void create_character(string shape, string eye, string color, string id){
+			WWWForm form = new WWWForm();
+			form.AddField("shape",shape);
+			form.AddField("eye",eye);
+			form.AddField("color",color);
+			form.AddField("session",Token.GetToken());
+			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/create_character/"+id,CallBackCreateCharacter,form);
+		}
 		public void update_(UserProfileModel userProfileModel, string id){
 			WWWForm form = new WWWForm();
 			form.AddField("user_id",userProfileModel.user_id);
@@ -101,6 +109,15 @@ namespace ApiController{
 			if (response == "")
 				return;
 			UserProfileModel user = JsonUtility.FromJson<UserProfileModel>(response);
+			print (user);
+		}
+		void CallBackCreateCharacter(string response){
+			if (response == "" || response == "invalid_token")
+				return;
+			UserProfileModel user = JsonUtility.FromJson<UserProfileModel>(response);
+			Token.SaveCustomField ("shape",user.shape);
+			Token.SaveCustomField ("eye",user.eye);
+			Token.SaveCustomField ("color",user.color);
 			print (user);
 		}
 		void CallBackDelete(string response){

@@ -59,7 +59,7 @@ namespace ApiController{
 			print (sleepingUser);
 		}
 		void CallBackSleepUser(string response){
-			if (response == "")
+			if (response == ""  || response == "invalid_token")
 				return;
 			SleepingUserModel sleepingUser = JsonUtility.FromJson<SleepingUserModel>(response);
 			print (sleepingUser);
@@ -68,7 +68,7 @@ namespace ApiController{
 			loadMainSceneScript.SetDark ();
 		}
 		void CallBackWakeUpUser(string response){
-			if (response == "")
+			if (response == ""  || response == "invalid_token")
 				return;
 			SleepingUserModel sleepingUser = JsonUtility.FromJson<SleepingUserModel>(response);
 			print (sleepingUser);

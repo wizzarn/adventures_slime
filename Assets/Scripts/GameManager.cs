@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject NicknameOBJ;
 	public GameObject PasswordOBJ;
 	public UserController userController;
-	public SleepingUserController sleepUser;
+	public SleepingUserController sleepUserController;
 	public GameObject mainButtonsOBJ;
 	public GameObject wakeUpButtonOBJ;
 	public GameObject mainSlimeOBJ;
@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour {
 	public void MainScene(){
 		StartCoroutine(ChangeScene(1));
 	}
+	public void CreateCharacterScene(){
+		StartCoroutine(ChangeScene(8));
+	}
 	public void LoginScene(){
 		StartCoroutine(ChangeScene(6));
 	}
@@ -36,13 +39,13 @@ public class GameManager : MonoBehaviour {
 		userController.Logout (Token.GetToken(),Token.GetUserId());
 	}
 	public void Login(){
-		userController.Login (NicknameOBJ.GetComponent<Text>().text,PasswordOBJ.GetComponent<Text>().text);
+		userController.Login (NicknameOBJ.GetComponent<Text>().text,PasswordOBJ.GetComponent<InputField>().text);
 	}
 	public void SleepUser(){
-		sleepUser.sleepUser (Token.GetToken(),Token.GetUserId());
+		sleepUserController.sleepUser (Token.GetToken(),Token.GetUserId());
 	}
 	public void WakeUpUser(){
-		sleepUser.wakeUpUser (Token.GetToken(),Token.GetUserId());
+		sleepUserController.wakeUpUser (Token.GetToken(),Token.GetUserId());
 	}
 	public void InGameSleep(){
 		if (mainButtonsOBJ && wakeUpButtonOBJ) {
@@ -59,6 +62,5 @@ public class GameManager : MonoBehaviour {
 			mainSlimeOBJ.SetActive (true);
 			slimeExampleOBJ.SetActive (false);
 		}
-	}		
-
+	}	
 }

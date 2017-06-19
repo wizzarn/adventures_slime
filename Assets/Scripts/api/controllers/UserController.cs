@@ -26,7 +26,7 @@ namespace ApiController{
 		}
 		public void Create(){
 			WWWForm form = new WWWForm();
-			UserModel newUser = new UserModel ("0", txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "","", "");
+			UserModel newUser = new UserModel ("0", txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "","", "","","","");
 			form.AddField("nickname",newUser.nickname);
 			form.AddField("password",newUser.password);
 			form.AddField("device_id",newUser.device_id);
@@ -40,7 +40,7 @@ namespace ApiController{
 			WWWForm form = new WWWForm();
 			int rnd = Random.Range (1, 3000);
 			string nickname = "ASDFG"+ rnd.ToString();
-			UserModel newUser = new UserModel ("0", nickname, "abc123","000000", "111111", "wizzarn@gmail.com","", "","");
+			UserModel newUser = new UserModel ("0", nickname, "abc123","000000", "111111", "wizzarn@gmail.com","", "","","","","");
 			form.AddField("nickname",newUser.nickname);
 			form.AddField("password",newUser.password);
 			form.AddField("device_id",newUser.device_id);
@@ -92,7 +92,10 @@ namespace ApiController{
 				Token.SaveUser(user.nickname,user.user_id,user.remember_token);
 				Token.SaveCustomField ("sleeping",user.sleeping);
 				print (response);
-				gameManager.MainScene ();
+				if (user.shape == null || user.shape == ""){
+					gameManager.CreateCharacterScene ();
+				}else
+					gameManager.MainScene ();
 			}
 		}
 		void CallBackLogout(string response){
