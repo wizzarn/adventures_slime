@@ -28,6 +28,7 @@ namespace ApiController{
 		public string shape;
 		public string color;
 		public string eye;
+		public string sleeping;
 		public string created_date;
 		public UserProfileModel(){
 		}
@@ -54,6 +55,7 @@ namespace ApiController{
 			 string shape,
 			 string color,
 			 string eye,
+			 string sleeping,
 			 string created_date)
 		{
 			this.user_id = user_id;
@@ -77,6 +79,7 @@ namespace ApiController{
 			this.shape=shape;
 			this.color=color;
 			this.eye=eye;
+			this.sleeping = sleeping;
 			this.created_date = created_date;
 		}
 

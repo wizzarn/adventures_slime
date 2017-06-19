@@ -25,9 +25,8 @@ namespace ApiController{
 			form.AddField("status",userItem.status);
 			httpHandlerScript.POST(Config.apiUrl+"itemsUsers/store",CallBackCreate,form);
 		}
-		public void setBroken(ItemUserModel userItem, string id){
+		public void setBroken(string id){
 			WWWForm form = new WWWForm();
-			form.AddField("user_id",userItem.user_id);
 			httpHandlerScript.POST(Config.apiUrl+"itemsUsers/setBroken/"+id,CallBackSetBroken,form);
 		}
 		void CallBackCreate(string response){

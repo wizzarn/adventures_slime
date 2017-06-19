@@ -17,7 +17,7 @@ namespace ApiController{
 		public void getByUserIds(string ids){
 			httpHandlerScript.GET(Config.apiUrl+"usersProfiles/getByUserIds/"+ids,CallBackGetByUserIds);
 		}
-		public void createUserProfile(UserProfileModel userProfileModel){
+		public void create(UserProfileModel userProfileModel){
 			WWWForm form = new WWWForm();
 			form.AddField("user_id",userProfileModel.user_id);
 			form.AddField("level",userProfileModel.level);
@@ -39,12 +39,21 @@ namespace ApiController{
 			form.AddField("latitude",userProfileModel.latitude);
 			form.AddField("shape",userProfileModel.shape);
 			form.AddField("color",userProfileModel.color);
+			form.AddField("sleeping",userProfileModel.sleeping);
 			form.AddField("eye",userProfileModel.eye);
 			form.AddField("created_date",userProfileModel.created_date);
 
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/store",CallBackCreate,form);
 		}
-		public void updateUserProfile(UserProfileModel userProfileModel, string id){
+		public void create_character(string shape, string eye, string color, string id){
+			WWWForm form = new WWWForm();
+			form.AddField("shape",shape);
+			form.AddField("eye",eye);
+			form.AddField("color",color);
+			form.AddField("session",Token.GetToken());
+			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/create_character/"+id,CallBackCreateCharacter,form);
+		}
+		public void update_(UserProfileModel userProfileModel, string id){
 			WWWForm form = new WWWForm();
 			form.AddField("user_id",userProfileModel.user_id);
 			form.AddField("level",userProfileModel.level);
@@ -66,12 +75,13 @@ namespace ApiController{
 			form.AddField("latitude",userProfileModel.latitude);
 			form.AddField("shape",userProfileModel.shape);
 			form.AddField("color",userProfileModel.color);
+			form.AddField("sleeping",userProfileModel.sleeping);
 			form.AddField("eye",userProfileModel.eye);
 			form.AddField("created_date",userProfileModel.created_date);
 
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/update/"+id,CallBackUpdate,form);
 		}
-		public void deleteUserProfile(string id){
+		public void delete(string id){
 			WWWForm form = new WWWForm();
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/delete/"+id,CallBackDelete,form);
 		}
@@ -99,6 +109,15 @@ namespace ApiController{
 			if (response == "")
 				return;
 			UserProfileModel user = JsonUtility.FromJson<UserProfileModel>(response);
+			print (user);
+		}
+		void CallBackCreateCharacter(string response){
+			if (response == "" || response == "invalid_token")
+				return;
+			UserProfileModel user = JsonUtility.FromJson<UserProfileModel>(response);
+			Token.SaveCustomField ("shape",user.shape);
+			Token.SaveCustomField ("eye",user.eye);
+			Token.SaveCustomField ("color",user.color);
 			print (user);
 		}
 		void CallBackDelete(string response){
