@@ -16,6 +16,10 @@ ModelImporter:
     100016: Eyebrow_control_end
     100018: pupils_control
     100020: pupils_control_end
+    100022: plane_for_normal
+    100024: plane_for_normal_MeshPart0
+    100026: plane_for_normal_MeshPart1
+    100028: slime_body.001
     400000: armature-slime
     400002: Body
     400004: Control
@@ -27,7 +31,22 @@ ModelImporter:
     400016: Eyebrow_control_end
     400018: pupils_control
     400020: pupils_control_end
+    400022: plane_for_normal
+    400024: plane_for_normal_MeshPart0
+    400026: plane_for_normal_MeshPart1
+    400028: slime_body.001
+    2300000: plane_for_normal_MeshPart0
+    2300002: plane_for_normal_MeshPart1
+    2300004: slime_body
+    2300006: slime_body.001
+    3300000: plane_for_normal_MeshPart0
+    3300002: plane_for_normal_MeshPart1
+    3300004: slime_body
+    3300006: slime_body.001
     4300000: slime_body
+    4300002: slime_body.001
+    4300004: plane_for_normal_MeshPart0
+    4300006: plane_for_normal_MeshPart1
     9500000: //RootNode
     13700000: slime_body
   materials:
