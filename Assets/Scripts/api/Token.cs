@@ -5,24 +5,30 @@ using UnityEngine.UI;
 
 public class Token : MonoBehaviour{
 	public GameObject obj;
-	public static void SaveToken(string token){
-		PlayerPrefs.SetString("UserToken", token);
-		print (PlayerPrefs.GetString ("UserToken"));
-	}
+
 	public static string GetToken(){
-		return PlayerPrefs.GetString ("UserToken");
+		return PlayerPrefs.GetString ("userToken");
 	}
-	public void ClearToken(){
-		PlayerPrefs.SetString ("UserToken","");
+	public static string GetNickname(){
+		return PlayerPrefs.GetString ("nickname");
 	}
-	public static void SaveUser(string nickname, string password){
+	public static string GetUserId(){
+		return PlayerPrefs.GetString ("user_id");
+	}
+	public static void ClearToken(){
+		PlayerPrefs.SetString ("userToken","");
+		PlayerPrefs.SetString ("user_id", "");
+		PlayerPrefs.SetString ("nickname","");
+	}
+	public static void SaveUser(string nickname, string user_id, string remember_token){
+		PlayerPrefs.SetString ("user_id", user_id);
 		PlayerPrefs.SetString ("nickname",nickname);
-		PlayerPrefs.SetString ("password",password);
+		PlayerPrefs.SetString("userToken", remember_token);
 	}
-	public static string[] GetUser(){
-		string[] response = new string[2];
-		response [0] = PlayerPrefs.GetString ("nickname");
-		response [1] = PlayerPrefs.GetString ("password");
-		return response;
+	public static void SaveCustomField(string field, string value){
+		PlayerPrefs.SetString (field,value);
+	}
+	public static string GetCustomField(string field){
+		return PlayerPrefs.GetString(field);
 	}
 }

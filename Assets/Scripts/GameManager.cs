@@ -6,7 +6,12 @@ using ApiController;
 public class GameManager : MonoBehaviour {
 	public GameObject NicknameOBJ;
 	public GameObject PasswordOBJ;
-	public UserController UserController;
+	public UserController userController;
+	public SleepingUserController sleepUserController;
+	public GameObject mainButtonsOBJ;
+	public GameObject wakeUpButtonOBJ;
+	public GameObject mainSlimeOBJ;
+	public GameObject slimeExampleOBJ;
 	public IEnumerator ChangeScene(int SceneIndex){
 		float fadeTime = GameObject.Find ("_GM").GetComponent<Fading> ().BeginFade (1);
 		yield return new WaitForSeconds (fadeTime);
@@ -21,6 +26,9 @@ public class GameManager : MonoBehaviour {
 	public void MainScene(){
 		StartCoroutine(ChangeScene(1));
 	}
+	public void CreateCharacterScene(){
+		StartCoroutine(ChangeScene(8));
+	}
 	public void LoginScene(){
 		StartCoroutine(ChangeScene(6));
 	}
@@ -28,9 +36,31 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(ChangeScene(7));
 	}
 	public void Logout(){
-		Token.SaveToken ("");
+		userController.Logout (Token.GetToken(),Token.GetUserId());
 	}
 	public void Login(){
-		UserController.Login (NicknameOBJ.GetComponent<Text>().text,PasswordOBJ.GetComponent<Text>().text);
+		userController.Login (NicknameOBJ.GetComponent<Text>().text,PasswordOBJ.GetComponent<InputField>().text);
 	}
+	public void SleepUser(){
+		sleepUserController.sleepUser (Token.GetToken(),Token.GetUserId());
+	}
+	public void WakeUpUser(){
+		sleepUserController.wakeUpUser (Token.GetToken(),Token.GetUserId());
+	}
+	public void InGameSleep(){
+		if (mainButtonsOBJ && wakeUpButtonOBJ) {
+			mainButtonsOBJ.SetActive (false);
+			wakeUpButtonOBJ.SetActive (true);
+			mainSlimeOBJ.SetActive (false);
+			slimeExampleOBJ.SetActive (true);
+		}
+	}
+	public void InGameWakeup(){
+		if (mainButtonsOBJ && wakeUpButtonOBJ) {
+			mainButtonsOBJ.SetActive (true);
+			wakeUpButtonOBJ.SetActive (false);
+			mainSlimeOBJ.SetActive (true);
+			slimeExampleOBJ.SetActive (false);
+		}
+	}	
 }
