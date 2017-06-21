@@ -6,12 +6,14 @@ using UnityEngine.UI;
 namespace ApiController{
 	public class UserProfileController : MonoBehaviour
 	{
+		public delegate void CallBack(UserProfileModel result);
 		public HttpHandler httpHandlerScript = new HttpHandler();
-
+		CallBack getByUserIdCallback;
 		public UserProfileController ()
 		{
 		}
-		public void getByUserId(string id){
+		public void getByUserId(string id, CallBack callback){
+			this.getByUserIdCallback = callback;
 			httpHandlerScript.GET(Config.apiUrl+"usersProfiles/getByUserId/"+id,CallBackGetByUserId);
 		}
 		public void getByUserIds(string ids){
@@ -89,6 +91,7 @@ namespace ApiController{
 			if (response == "")
 				return;
 			UserProfileModel userProfile = JsonUtility.FromJson<UserProfileModel>(response);
+			this.getByUserIdCallback (userProfile);
 			print (userProfile);
 		}
 		void CallBackGetByUserIds(string response){
