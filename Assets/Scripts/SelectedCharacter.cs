@@ -22,7 +22,7 @@ public class SelectedCharacter : MonoBehaviour {
 	}
 
 	public void setColor( string strColor ) {
-		this.strShape = strColor;
+		this.strColor = strColor;
 		ChangeCharacterMaterial.Instance.colorBody = strColor;
 	}
 
