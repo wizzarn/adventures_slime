@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e161171bfd6fde5429ebfe51e0c2377b
-timeCreated: 1497761110
+guid: 6eaf9f49d53d70f4e826bb21c55eef4f
+timeCreated: 1497914656
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -8,28 +8,26 @@ ModelImporter:
     100000: armature-slime
     100002: Body
     100004: Control
-    100006: Head
-    100008: Head_end
-    100010: slime_body
-    100012: //RootNode
-    100014: Eyebrow_control
-    100016: Eyebrow_control_end
-    100018: pupils_control
-    100020: pupils_control_end
+    100006: Eyebrow_control
+    100008: Eyebrow_control_end
+    100010: Head
+    100012: pupils_control
+    100014: pupils_control_end
+    100016: slime_body
+    100018: //RootNode
     400000: armature-slime
     400002: Body
     400004: Control
-    400006: Head
-    400008: Head_end
-    400010: slime_body
-    400012: //RootNode
-    400014: Eyebrow_control
-    400016: Eyebrow_control_end
-    400018: pupils_control
-    400020: pupils_control_end
+    400006: Eyebrow_control
+    400008: Eyebrow_control_end
+    400010: Head
+    400012: pupils_control
+    400014: pupils_control_end
+    400016: slime_body
+    400018: //RootNode
+    2300000: slime_body
+    3300000: slime_body
     4300000: slime_body
-    9500000: //RootNode
-    13700000: slime_body
   materials:
     importMaterials: 1
     materialName: 0
@@ -92,7 +90,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
