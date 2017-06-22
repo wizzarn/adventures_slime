@@ -1,0 +1,42 @@
+La textura del slime sera en un tamaño de 640x640px
+La imagen es png con un fondo transparente
+El slime debe comenzar desde la parte baja hasta la superior
+No requiere abarcar toda la imagen.
+De preferencia mantener tamaños al ejemplo que muestra la imagen slime_image_size.png
+
+La textura de los ojos contiene 3 partes
+cejas, ojos y pupilas
+
+La textura es de 1024x1024px
+
+Solo se requiere un ejemplo por imagen, se hara mirror en el modelo
+En el ejemplo que muestra la imagen slime_image_eyes.png
+se muestran como deben estar acomodados los ojos basicos para las animaciones
+
+la primer ilera seran cejas. Actualmente hay 3 tipos: (de izq a der) sorpresa, normal, enojo
+la segunda ilera son los ojos. Actualmente hay 4 tipos: (de izq a der) sorpresa, normal, cansancio, cerrado
+la tercer ilera son las pupilas. Actualmente hay 3 tipos: (de izq a der) chico, normal, grande. Cuando el ojo esta cerrado la pupila desaparece.
+
+La textura de los ojos puede actualizarse agregando mas variedad de expresiones
+pero el limite son 128x128px.
+
+en la textura hay un espacio que no debe modificarse. en la parte inferior izquierda. este ocupa el espacio para una animacion vacia y la separacion de los ojos.
+
+
+En la carpeta /source_images/characters/
+generar carpetas por tipo de cuerpo y agregar ahi los cuerpos con el nombre del cuerpo y su color ej.
+round_red.png
+
+Los colores basicos que deben realizarse por cuerpo son:
+black
+blue
+gray
+green
+light_blue
+orange
+pink
+purple
+red
+yellow
+white
+special <--- sin color especifico puede ser cualquier combinacion o cualquier otro color especial
