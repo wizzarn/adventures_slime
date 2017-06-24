@@ -11,6 +11,9 @@ namespace ApiController{
 		public Text txtNickname;
 		public Text txtPassword;
 		public Text txtEmail;
+		public GameObject objErrorHandler;
+
+
 		public void GetAll(){
 			httpHandlerScript.GET(Config.apiUrl+"user/getAll",CallBackGetAll);
 		}
@@ -19,12 +22,33 @@ namespace ApiController{
 			httpHandlerScript.GET(Config.apiUrl+"user/getById/"+user_id.ToString(),CallBackGetById);
 		}
 		public void Login(string nickname, string password){
+			string error = "";
+			if (nickname == "" || nickname.Length < 5 || nickname.Length > 15)
+				error+= "Please specify a valid nickname";
+			if (password == "" || password.Length < 5 || password.Length > 15)
+				error+= "\nPlease specify a valid password";
+			if (error != "") {
+				objErrorHandler.GetComponent<ErrorHandler> ().SetFontSize (27);
+				objErrorHandler.GetComponent<ErrorHandler> ().EnableError (error);
+				return;
+			}
 			WWWForm form = new WWWForm();
 			form.AddField("nickname",nickname);
 			form.AddField("password",password);
 			httpHandlerScript.POST(Config.apiUrl+"user/login",CallBackLogin,form);
 		}
 		public void Create(){
+			string error = "";
+			if (txtNickname.text == "" || txtNickname.text.Length < 5 || txtNickname.text.Length > 15)
+				error+= "Please specify a valid nickname";
+			if (txtPassword.text == "" || txtPassword.text.Length < 5 || txtPassword.text.Length > 15)
+				error+= "\nPlease specify a valid password";
+			
+			if (error != "") {
+				objErrorHandler.GetComponent<ErrorHandler> ().SetFontSize (27);
+				objErrorHandler.GetComponent<ErrorHandler> ().EnableError (error);
+				return;
+			}
 			WWWForm form = new WWWForm();
 			UserModel newUser = new UserModel ("0", txtNickname.text, txtPassword.text, SystemInfo.deviceUniqueIdentifier, "83764555", txtEmail.text, "","", "","","","");
 			form.AddField("nickname",newUser.nickname);
@@ -63,6 +87,11 @@ namespace ApiController{
 		}
 		void CallBackCreate(string response){
 			print (response);
+			if (response == "nickname_taken") {
+				objErrorHandler.GetComponent<ErrorHandler> ().SetFontSize (30);
+				objErrorHandler.GetComponent<ErrorHandler> ().EnableError ("Nickname already taken");
+				return;
+			}
 			if (response == "")
 				return;
 			UserModel user = JsonUtility.FromJson<UserModel>(response);
@@ -87,15 +116,17 @@ namespace ApiController{
 			print (user);
 		}
 		void CallBackLogin(string response){
-			if (response != "wrong"){
-				UserModel user = JsonUtility.FromJson<UserModel>(response);
-				Token.SaveUser(user.nickname,user.user_id,user.remember_token);
-				Token.SaveCustomField ("sleeping",user.sleeping);
+			if (response != "wrong") {
+				UserModel user = JsonUtility.FromJson<UserModel> (response);
+				Token.SaveUser (user.nickname, user.user_id, user.remember_token);
+				Token.SaveCustomField ("sleeping", user.sleeping);
 				print (response);
-				if (user.shape == null || user.shape == ""){
+				if (user.shape == null || user.shape == "") {
 					gameManager.CreateCharacterScene ();
-				}else
+				} else
 					gameManager.MainScene ();
+			} else {
+				objErrorHandler.GetComponent<ErrorHandler> ().EnableError ("Incorrect, please try again");
 			}
 		}
 		void CallBackLogout(string response){

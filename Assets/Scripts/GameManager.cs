@@ -63,4 +63,5 @@ public class GameManager : MonoBehaviour {
 			slimeExampleOBJ.SetActive (false);
 		}
 	}	
+
 }
