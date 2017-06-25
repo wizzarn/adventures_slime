@@ -15,6 +15,22 @@ ModelImporter:
     100014: pupils_control_end
     100016: //RootNode
     100018: slime_body_monster
+    100020: Armature_slime_body
+    100022: eyebrows_control
+    100024: lv1
+    100026: lv2
+    100028: lv3
+    100030: slime_body
+    100032: slime_eyebrows
+    100034: slime_eyes
+    100036: slime_pupils
+    100038: eyebrows_control_end
+    100040: lv3_end
+    100042: slime_eyebrows_monster
+    100044: slime_eyes_monster
+    100046: slime_pupils_monster
+    100048: squash_control
+    100050: squash_control_end
     400000: armature-slime
     400002: Body
     400004: Control
@@ -25,9 +41,46 @@ ModelImporter:
     400014: pupils_control_end
     400016: //RootNode
     400018: slime_body_monster
+    400020: Armature_slime_body
+    400022: eyebrows_control
+    400024: lv1
+    400026: lv2
+    400028: lv3
+    400030: slime_body
+    400032: slime_eyebrows
+    400034: slime_eyes
+    400036: slime_pupils
+    400038: eyebrows_control_end
+    400040: lv3_end
+    400042: slime_eyebrows_monster
+    400044: slime_eyes_monster
+    400046: slime_pupils_monster
+    400048: squash_control
+    400050: squash_control_end
     2300000: slime_body_monster
+    2300002: slime_body
+    2300004: slime_eyebrows
+    2300006: slime_eyes
+    2300008: slime_pupils
+    2300010: slime_eyebrows_monster
+    2300012: slime_eyes_monster
+    2300014: slime_pupils_monster
     3300000: slime_body_monster
+    3300002: slime_body
+    3300004: slime_eyebrows
+    3300006: slime_eyes
+    3300008: slime_pupils
+    3300010: slime_eyebrows_monster
+    3300012: slime_eyes_monster
+    3300014: slime_pupils_monster
     4300000: slime_body_monster
+    4300002: slime_eyes
+    4300004: slime_eyebrows
+    4300006: slime_pupils
+    4300008: slime_body
+    4300010: slime_eyes_monster
+    4300012: slime_eyebrows_monster
+    4300014: slime_pupils_monster
   materials:
     importMaterials: 1
     materialName: 0

@@ -10,7 +10,10 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 	private string _colorBody = "blue";
 	private string _eyesType = "type_01";
 
-	public int type = 0;
+	public Transform Body;
+	public Transform Eyes;
+	public Transform Eyebrows;
+	public Transform Pupils;
 
 	void Awake() {
 		if (Instance != null) {
@@ -35,8 +38,7 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 		}
 		set {
 			_colorBody = value;
-			if( type == 0 )
-				this.UpdateBody();
+			this.UpdateBody();
 		}
 	}
 
@@ -46,8 +48,7 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 		}
 		set {
 			_eyesType = value;
-			if( type == 1 )
-				this.UpdateEyes();
+			this.UpdateEyes();
 		}
 	}
 
@@ -66,16 +67,21 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 	}
 
 	private void UpdateBody() {
-		Renderer rend = GetComponent<Renderer>();
+		Renderer rend = this.Body.GetComponent<Renderer>();
 		// Body
 		Material newMat = Resources.Load( this.bodyDir, typeof(Material) ) as Material;
 		rend.material = newMat;
 	}
 
 	private void UpdateEyes() {
-		Renderer rend = GetComponent<Renderer>();
+		Renderer rend_eye1 = this.Eyes.GetComponent<Renderer>();
+		Renderer rend_eye2 = this.Eyebrows.GetComponent<Renderer>();
+		Renderer rend_eye3 = this.Pupils.GetComponent<Renderer>();
 		// Eyes
 		Material newMat = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		rend.material = newMat;
+		rend_eye1.material = newMat;
+		rend_eye2.material = newMat;
+		rend_eye3.material = newMat;
+
 	}
 }
