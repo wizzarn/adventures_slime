@@ -10,6 +10,8 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 	private string _colorBody = "blue";
 	private string _eyesType = "type_01";
 
+	public int type = 0;
+
 	void Awake() {
 		if (Instance != null) {
 			Debug.LogError("Multiple instances of ChangeCharacterMaterial!");
@@ -19,21 +21,22 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 
 	public string bodyShape {
 		get {
-			return _bodyShape; 
+			return _bodyShape;
 		}
 		set {
 			_bodyShape = value;
-			this.UpdateMaterials();
+			this.UpdateBody();
 		}
 	}
 
 	public string colorBody {
 		get {
-			return _colorBody; 
+			return _colorBody;
 		}
 		set {
 			_colorBody = value;
-			this.UpdateMaterials();
+			if( type == 0 )
+				this.UpdateBody();
 		}
 	}
 
@@ -43,7 +46,8 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 		}
 		set {
 			_eyesType = value;
-			this.UpdateMaterials();
+			if( type == 1 )
+				this.UpdateEyes();
 		}
 	}
 
@@ -61,15 +65,17 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 		private set {}
 	}
 
-	private void UpdateMaterials() {
+	private void UpdateBody() {
 		Renderer rend = GetComponent<Renderer>();
-		Material[] newMat = new Material[4];
 		// Body
-		newMat[0] = Resources.Load( this.bodyDir, typeof(Material) ) as Material;
+		Material newMat = Resources.Load( this.bodyDir, typeof(Material) ) as Material;
+		rend.material = newMat;
+	}
+
+	private void UpdateEyes() {
+		Renderer rend = GetComponent<Renderer>();
 		// Eyes
-		newMat[1] = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		newMat[2] = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		newMat[3] = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		rend.materials = newMat;
+		Material newMat = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
+		rend.material = newMat;
 	}
 }
