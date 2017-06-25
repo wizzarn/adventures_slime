@@ -14,7 +14,9 @@ namespace ApiController{
 		}
 		public void getByUserId(string id, CallBack callback){
 			this.getByUserIdCallback = callback;
-			httpHandlerScript.GET(Config.apiUrl+"usersProfiles/getByUserId/"+id,CallBackGetByUserId);
+			WWWForm form = new WWWForm();
+			form.AddField("session",Token.GetToken());
+			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/getByUserId/"+id,CallBackGetByUserId,form);
 		}
 		public void getByUserIds(string ids){
 			httpHandlerScript.GET(Config.apiUrl+"usersProfiles/getByUserIds/"+ids,CallBackGetByUserIds);
@@ -88,7 +90,7 @@ namespace ApiController{
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/delete/"+id,CallBackDelete,form);
 		}
 		void CallBackGetByUserId(string response){
-			if (response == "")
+			if (response == "" || response == "invalid_session")
 				return;
 			UserProfileModel userProfile = JsonUtility.FromJson<UserProfileModel>(response);
 			this.getByUserIdCallback (userProfile);
