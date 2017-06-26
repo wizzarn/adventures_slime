@@ -17,6 +17,8 @@ public class OnLoadMyStatsScene : MonoBehaviour {
 			userProfileCtrl.getByUserId (Token.GetUserId(),GetByUseIdCallback);
 	}
 	void GetByUseIdCallback(UserProfileModel response){
+		if (!hasLength)
+			return;
 		txtObjets [0].GetComponent<Text> ().text = response.phys_dmg;
 		txtObjets [1].GetComponent<Text> ().text = response.inte;
 		txtObjets [2].GetComponent<Text> ().text = response.str;

@@ -39,15 +39,4 @@ namespace ApiController{
 		}
 
 	}
-	[Serializable]
-	public class UserModelErrorHandler{
-		public string nickname;
-		public string password;
-		public string device_id;
-		public string phone;
-
-		public UserModelErrorHandler(){
-		}
-	}
-
 }
