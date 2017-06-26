@@ -7,6 +7,7 @@ public class DungeonDetailPanel : MonoBehaviour {
 
 	public List<GameObject> txtList = new List<GameObject> ();
 	bool hasLength = false;
+	public static bool instanceActive = false;
 	void Start () {
 		if (txtList.Count > 0)
 			hasLength = true;
@@ -25,6 +26,8 @@ public class DungeonDetailPanel : MonoBehaviour {
 	}
 	public void HideDialog(){
 		this.gameObject.SetActive (false);
+		instanceActive = false;
+		Destroy (this.gameObject);
 	}
 	void Update () {
 	}
