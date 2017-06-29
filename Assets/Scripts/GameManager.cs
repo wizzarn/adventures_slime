@@ -6,8 +6,10 @@ using ApiController;
 public class GameManager : MonoBehaviour {
 	public GameObject NicknameOBJ;
 	public GameObject PasswordOBJ;
+
 	public UserController userController;
 	public SleepingUserController sleepUserController;
+
 	public GameObject mainButtonsOBJ;
 	public GameObject wakeUpButtonOBJ;
 	public GameObject mainSlimeOBJ;

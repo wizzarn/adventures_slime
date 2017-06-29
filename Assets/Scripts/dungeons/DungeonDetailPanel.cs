@@ -6,11 +6,15 @@ using ApiController;
 public class DungeonDetailPanel : MonoBehaviour {
 
 	public List<GameObject> txtList = new List<GameObject> ();
-	bool hasLength = false;
+	public GameObject goBtnObj;
+	private DungeonModel dungeonModel;
 	public static bool instanceActive = false;
+	private DungeonUserController dungeonUserCtrl;
+
+	bool flagError = false;
+	float tmrError_ = 0;
 	void Start () {
-		if (txtList.Count > 0)
-			hasLength = true;
+		dungeonUserCtrl = GameObject.Find ("DungeonUserController").GetComponent<DungeonUserController>();
 	}
 
 	public void ShowDialog(DungeonModel dungeonModel){
@@ -22,6 +26,9 @@ public class DungeonDetailPanel : MonoBehaviour {
 		txtList [3].GetComponent<Text> ().text = dungeonModel.status;
 		txtList [4].GetComponent<Text> ().text = dungeonModel.exp_reward_range;
 		txtList [5].GetComponent<Text> ().text = dungeonModel.cash_reward_range;
+
+		this.dungeonModel = dungeonModel;
+		goBtnObj.GetComponent<Button> ().onClick.AddListener (GoDungeonBtn);
 		this.gameObject.SetActive (true);
 	}
 	public void HideDialog(){
@@ -29,6 +36,33 @@ public class DungeonDetailPanel : MonoBehaviour {
 		instanceActive = false;
 		Destroy (this.gameObject);
 	}
-	void Update () {
+	public void GoDungeonBtn(){
+		DungeonUserModel dungeonUserModel = new DungeonUserModel ("", dungeonModel.dungeon_id, Token.GetUserId (), "", "", "active", "");
+		dungeonUserCtrl.create(dungeonUserModel, GoDungeonCallback);
 	}
+	void GoDungeonCallback(DungeonUserModel response,string error){
+		if (error != "") {
+			txtList [6].GetComponent<Text> ().text = error;
+			SetError (true);
+		}
+	}
+	void Update(){
+		if (flagError) {
+			tmrError_ += Time.deltaTime;
+			if (tmrError_ > Config.errorHandlerTime)
+				SetError (false);
+		}
+	}
+	void SetError(bool active){
+		if (active) {
+			tmrError_ = 0;
+			flagError = true;
+			txtList [6].SetActive (true);
+		} else {
+			tmrError_ = 0;
+			flagError = false;
+			txtList [6].SetActive (false);
+		}
+	}
+
 }
