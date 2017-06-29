@@ -16,7 +16,10 @@ namespace ApiController{
 		IEnumerator __POST(string urlRequest, CallBack callBack, WWWForm form){
 			UnityWebRequest www = UnityWebRequest.Post(urlRequest, form);
 			yield return www.Send();
-			if(www.isError) Debug.Log(www.error);
+			if (www.isError) {
+				Debug.Log (www.error);
+				callBack(www.error);
+			}
 			else callBack(www.downloadHandler.text);
 		}
 		// ************************************

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 	public class DungeonUserController : MonoBehaviour
 	{
 		public HttpHandler httpHandlerScript = new HttpHandler();
+		public delegate void CallBackCreate(DungeonUserModel result, string errorResult);
+		CallBackCreate createCallback;
 		public DungeonUserController(){
 		}
 		public void delete(string id){
@@ -17,16 +19,17 @@ using UnityEngine.UI;
 			WWWForm form = new WWWForm();
 			form.AddField("item_dungeon_drop_id",itemDungeonDropModel.item_dungeon_drop_id);
 			form.AddField("dungeon_id",itemDungeonDropModel.dungeon_id);
-			form.AddField("item_id",itemDungeonDropModel.item_id);
+			form.AddField("user_id",itemDungeonDropModel.item_id);
 			form.AddField("drop_chance",itemDungeonDropModel.drop_chance);
 			httpHandlerScript.POST(Config.apiUrl+"dungeonsUsers/update/"+id,CallBackUpdate,form);
 		}
-		public void create(ItemDungeonDropModel itemDungeonDropModel){
+		public void create(DungeonUserModel dungeonUserModel,CallBackCreate callback){
+			this.createCallback = callback;
 			WWWForm form = new WWWForm();
-			form.AddField("dungeon_id",itemDungeonDropModel.dungeon_id);
-			form.AddField("item_id",itemDungeonDropModel.item_id);
-			form.AddField("drop_chance",itemDungeonDropModel.drop_chance);
-			httpHandlerScript.POST(Config.apiUrl+"dungeonsUsers/store",CallBackCreate,form);
+			form.AddField("dungeon_id",dungeonUserModel.dungeon_id);
+			form.AddField("user_id",Token.GetUserId());
+			form.AddField("session",Token.GetToken());
+			httpHandlerScript.POST(Config.apiUrl+"dungeonsUsers/store",CallBackCreateDungeonUser,form);
 		}
 		public void getAllDungeonsByUserId(string id){
 			httpHandlerScript.GET(Config.apiUrl+"dungeonsUsers/getAllDungeonsByUserId/"+id,CallBackGetAllDungeonsByUserId);
@@ -53,12 +56,21 @@ using UnityEngine.UI;
 			DungeonUserModel dungeonUserModel = JsonUtility.FromJson<DungeonUserModel>(response);
 			print (dungeonUserModel);
 		}
-		void CallBackCreate(string response){
-			print (response);
-			if (response == "")
-				return;
-			DungeonUserModel dungeonUserModel = JsonUtility.FromJson<DungeonUserModel>(response);
-			print (dungeonUserModel);
+		void CallBackCreateDungeonUser(string response){
+			if (response == "invalid_session")
+				createCallback (new DungeonUserModel (), "invalid_session");
+			else if (response == "invalid_dungeon")
+				createCallback (new DungeonUserModel (), "invalid_dungeon");
+			else if (response == "invalid_user_profile")
+				createCallback (new DungeonUserModel (), "invalid_user_profile");
+			else if (response == "insufficient_level")
+				createCallback (new DungeonUserModel (), "insufficient_level");
+			else {
+				DungeonUserModel dungeonUserModel = JsonUtility.FromJson<DungeonUserModel>(response);
+				print (dungeonUserModel);
+				createCallback (dungeonUserModel,"");
+			}
+
 		}
 		void CallBackGetAllDungeonsByUserId(string response){
 			if (response == "") return;
@@ -84,8 +96,6 @@ using UnityEngine.UI;
 			DungeonUserModel[] dungeonsUserModel = JsonHelper.FromJson<DungeonUserModel> (response);
 			print (dungeonsUserModel);
 		}
-
-
 		void CallBackDelete(string response){
 			if (response == "")
 				return;

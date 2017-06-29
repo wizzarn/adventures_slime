@@ -116,6 +116,11 @@ namespace ApiController{
 			print (user);
 		}
 		void CallBackLogin(string response){
+			if (response == "Cannot connect to destination host") {
+				objErrorHandler.GetComponent<ErrorHandler> ().SetFontSize (25);
+				objErrorHandler.GetComponent<ErrorHandler> ().EnableError ("Can't connect to the game server, please try again in a few minutes\nAlso verify that you have a valid internet connection");
+				return;
+			}
 			if (response != "wrong") {
 				UserModel user = JsonUtility.FromJson<UserModel> (response);
 				Token.SaveUser (user.nickname, user.user_id, user.remember_token);
@@ -126,6 +131,7 @@ namespace ApiController{
 				} else
 					gameManager.MainScene ();
 			} else {
+				objErrorHandler.GetComponent<ErrorHandler> ().SetFontSize (28);
 				objErrorHandler.GetComponent<ErrorHandler> ().EnableError ("Incorrect, please try again");
 			}
 		}
