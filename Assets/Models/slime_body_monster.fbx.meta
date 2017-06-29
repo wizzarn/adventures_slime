@@ -81,6 +81,11 @@ ModelImporter:
     4300010: slime_eyes_monster
     4300012: slime_eyebrows_monster
     4300014: slime_pupils_monster
+    9500000: //RootNode
+    13700000: slime_body
+    13700002: slime_eyebrows
+    13700004: slime_eyes
+    13700006: slime_pupils
   materials:
     importMaterials: 1
     materialName: 0
@@ -95,7 +100,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -137,13 +142,13 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Control
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
