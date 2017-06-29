@@ -57,14 +57,9 @@ using UnityEngine.UI;
 			print (dungeonUserModel);
 		}
 		void CallBackCreateDungeonUser(string response){
-			if (response == "invalid_session")
-				createCallback (new DungeonUserModel (), "invalid_session");
-			else if (response == "invalid_dungeon")
-				createCallback (new DungeonUserModel (), "invalid_dungeon");
-			else if (response == "invalid_user_profile")
-				createCallback (new DungeonUserModel (), "invalid_user_profile");
-			else if (response == "insufficient_level")
-				createCallback (new DungeonUserModel (), "insufficient_level");
+			/* Error Enum Pending */
+			if (response == "invalid_session" || response == "invalid_dungeon" || response == "invalid_user_profile" || response == "insufficient_level")
+				createCallback (new DungeonUserModel (), response);
 			else {
 				DungeonUserModel dungeonUserModel = JsonUtility.FromJson<DungeonUserModel>(response);
 				print (dungeonUserModel);
