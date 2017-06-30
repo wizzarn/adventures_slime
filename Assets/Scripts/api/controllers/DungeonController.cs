@@ -6,6 +6,8 @@ using UnityEngine.UI;
 namespace ApiController{
 	public class DungeonController : MonoBehaviour
 	{
+		public delegate void CallBack(DungeonModel[] result);
+		CallBack getAllCallback;
 		public HttpHandler httpHandlerScript = new HttpHandler();
 		public DungeonController(){
 		}
@@ -40,8 +42,11 @@ namespace ApiController{
 		public void getById(string id){
 			httpHandlerScript.GET(Config.apiUrl+"dungeons/getById/"+id,CallBackGetById);
 		}
-		public void getAll(){
-			httpHandlerScript.GET(Config.apiUrl+"dungeons/getAll",CallBackGetAll);
+		public void getAll(CallBack callback){
+			this.getAllCallback = callback;
+			WWWForm form = new WWWForm ();
+			form.AddField ("session",Token.GetToken());
+			httpHandlerScript.POST(Config.apiUrl+"dungeons/getAll/"+Token.GetUserId(),CallBackGetAll,form);
 		}
 		public void getByName(string name){
 			httpHandlerScript.GET(Config.apiUrl+"dungeons/getByName/"+name,CallBackGetByName);
@@ -77,6 +82,7 @@ namespace ApiController{
 			response = JsonHelper.fixJson (response);
 			DungeonModel[] dungeonModels = JsonHelper.FromJson<DungeonModel> (response);
 			print (dungeonModels);
+			this.getAllCallback (dungeonModels);
 		}
 		void CallBackGetByName(string response){
 			if (response == "") return;

@@ -10,6 +10,11 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 	private string _colorBody = "blue";
 	private string _eyesType = "type_01";
 
+	public Transform Body;
+	public Transform Eyes;
+	public Transform Eyebrows;
+	public Transform Pupils;
+
 	void Awake() {
 		if (Instance != null) {
 			Debug.LogError("Multiple instances of ChangeCharacterMaterial!");
@@ -19,21 +24,21 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 
 	public string bodyShape {
 		get {
-			return _bodyShape; 
+			return _bodyShape;
 		}
 		set {
 			_bodyShape = value;
-			this.UpdateMaterials();
+			this.UpdateBody();
 		}
 	}
 
 	public string colorBody {
 		get {
-			return _colorBody; 
+			return _colorBody;
 		}
 		set {
 			_colorBody = value;
-			this.UpdateMaterials();
+			this.UpdateBody();
 		}
 	}
 
@@ -43,7 +48,7 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 		}
 		set {
 			_eyesType = value;
-			this.UpdateMaterials();
+			this.UpdateEyes();
 		}
 	}
 
@@ -61,15 +66,22 @@ public class ChangeCharacterMaterial : MonoBehaviour {
 		private set {}
 	}
 
-	private void UpdateMaterials() {
-		Renderer rend = GetComponent<Renderer>();
-		Material[] newMat = new Material[4];
+	private void UpdateBody() {
+		Renderer rend = this.Body.GetComponent<Renderer>();
 		// Body
-		newMat[0] = Resources.Load( this.bodyDir, typeof(Material) ) as Material;
+		Material newMat = Resources.Load( this.bodyDir, typeof(Material) ) as Material;
+		rend.material = newMat;
+	}
+
+	private void UpdateEyes() {
+		Renderer rend_eye1 = this.Eyes.GetComponent<Renderer>();
+		Renderer rend_eye2 = this.Eyebrows.GetComponent<Renderer>();
+		Renderer rend_eye3 = this.Pupils.GetComponent<Renderer>();
 		// Eyes
-		newMat[1] = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		newMat[2] = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		newMat[3] = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-		rend.materials = newMat;
+		Material newMat = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
+		rend_eye1.material = newMat;
+		rend_eye2.material = newMat;
+		rend_eye3.material = newMat;
+
 	}
 }
