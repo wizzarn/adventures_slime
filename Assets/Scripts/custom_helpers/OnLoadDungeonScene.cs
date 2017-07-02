@@ -7,11 +7,11 @@ public class OnLoadDungeonScene : MonoBehaviour {
 
 	public Transform panelDungeonPrefab;
 	private GameObject canvasObj;
-	private bool hasLength = false;
 	public DungeonController dungeonCtrl;
 	Vector3 lastPosition;
 
 	List<GameObject> listDungeons = new List<GameObject> ();
+
 	float fixY = 0;
 	void Start () {
 		canvasObj = GameObject.Find ("Canvas");
@@ -33,4 +33,5 @@ public class OnLoadDungeonScene : MonoBehaviour {
 		}
 
 	}
+
 }

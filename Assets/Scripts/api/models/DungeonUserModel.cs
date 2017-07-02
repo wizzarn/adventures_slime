@@ -15,6 +15,9 @@ namespace ApiController{
 		public string end_date;
 		public string status;
 		public string created_date;
+		public string name;
+		public string minutes;
+		public DungeonReward rewards;
 		public DungeonUserModel(){
 		
 		}
