@@ -64,6 +64,9 @@ public class GameManager : MonoBehaviour {
 			mainSlimeOBJ.SetActive (true);
 			slimeExampleOBJ.SetActive (false);
 		}
-	}	
+	}
+	public void SetMainButtons(bool status){
+		mainButtonsOBJ.SetActive (status);
+	}
 
 }

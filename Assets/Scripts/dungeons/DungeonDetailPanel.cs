@@ -10,10 +10,12 @@ public class DungeonDetailPanel : MonoBehaviour {
 	private DungeonModel dungeonModel;
 	public static bool instanceActive = false;
 	private DungeonUserController dungeonUserCtrl;
+	GameManager gameManagerScript;
 
 	bool flagError = false;
 	float tmrError_ = 0;
 	void Start () {
+		gameManagerScript = GameObject.Find ("_GM").GetComponent<GameManager> ();
 		dungeonUserCtrl = GameObject.Find ("DungeonUserController").GetComponent<DungeonUserController>();
 	}
 
@@ -30,6 +32,7 @@ public class DungeonDetailPanel : MonoBehaviour {
 		this.dungeonModel = dungeonModel;
 		goBtnObj.GetComponent<Button> ().onClick.AddListener (GoDungeonBtn);
 		this.gameObject.SetActive (true);
+		goBtnObj.SetActive (true);
 	}
 	public void HideDialog(){
 		this.gameObject.SetActive (false);
@@ -37,6 +40,7 @@ public class DungeonDetailPanel : MonoBehaviour {
 		Destroy (this.gameObject);
 	}
 	public void GoDungeonBtn(){
+		goBtnObj.SetActive (false);
 		DungeonUserModel dungeonUserModel = new DungeonUserModel ("", dungeonModel.dungeon_id, Token.GetUserId (), "", "", "active", "");
 		dungeonUserCtrl.create(dungeonUserModel, GoDungeonCallback);
 	}
@@ -44,6 +48,10 @@ public class DungeonDetailPanel : MonoBehaviour {
 		if (error != "") {
 			txtList [6].GetComponent<Text> ().text = error;
 			SetError (true);
+		} else {
+			HideDialog ();
+			Token.SaveCustomField ("status", "dungeon");
+			gameManagerScript.MainScene ();
 		}
 	}
 	void Update(){

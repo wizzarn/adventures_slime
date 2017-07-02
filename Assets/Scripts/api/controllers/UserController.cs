@@ -125,6 +125,7 @@ namespace ApiController{
 				UserModel user = JsonUtility.FromJson<UserModel> (response);
 				Token.SaveUser (user.nickname, user.user_id, user.remember_token);
 				Token.SaveCustomField ("sleeping", user.sleeping);
+				Token.SaveCustomField ("status", user.status);
 				print (response);
 				if (user.shape == null || user.shape == "") {
 					gameManager.CreateCharacterScene ();
