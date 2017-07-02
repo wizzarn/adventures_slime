@@ -8,7 +8,9 @@ using UnityEngine.UI;
 	{
 		public HttpHandler httpHandlerScript = new HttpHandler();
 		public delegate void CallBackCreate(DungeonUserModel result, string errorResult);
+		public delegate void CallBackGetActive(DungeonUserModel result, string errorResult);
 		CallBackCreate createCallback;
+		CallBackGetActive getActiveCallback;
 		public DungeonUserController(){
 		}
 		public void delete(string id){
@@ -34,8 +36,12 @@ using UnityEngine.UI;
 		public void getAllDungeonsByUserId(string id){
 			httpHandlerScript.GET(Config.apiUrl+"dungeonsUsers/getAllDungeonsByUserId/"+id,CallBackGetAllDungeonsByUserId);
 		}
-		public void getActiveDungeonByUserId(string id){
-			httpHandlerScript.GET(Config.apiUrl+"dungeonsUsers/getActiveDungeonByUserId/"+id,CallBackGetActiveDungeonByUserId);
+		public void getActiveDungeonByUserId(CallBackGetActive callback){
+			this.getActiveCallback = callback;
+			WWWForm form = new WWWForm ();
+			form.AddField ("session",Token.GetToken());
+			form.AddField ("user_id",Token.GetUserId());
+			httpHandlerScript.POST(Config.apiUrl+"dungeonsUsers/getActiveDungeonByUserId",CallBackGetActiveDungeonByUserId,form);
 		}
 		public void getLostDungeonsByUserId(string id){
 			httpHandlerScript.GET(Config.apiUrl+"dungeonsUsers/getLostDungeonsByUserId/"+id,CallBackGetLostDungeonsByUserId);
@@ -58,7 +64,7 @@ using UnityEngine.UI;
 		}
 		void CallBackCreateDungeonUser(string response){
 			/* Error Enum Pending */
-			if (response == "invalid_session" || response == "invalid_dungeon" || response == "invalid_user_profile" || response == "insufficient_level")
+			if (response == "invalid_session" || response == "invalid_dungeon" || response == "invalid_user_profile" || response == "insufficient_level" || response == "already_in_dungeon")
 				createCallback (new DungeonUserModel (), response);
 			else {
 				DungeonUserModel dungeonUserModel = JsonUtility.FromJson<DungeonUserModel>(response);
@@ -74,10 +80,11 @@ using UnityEngine.UI;
 			print (dungeonsUserModel);
 		}
 		void CallBackGetActiveDungeonByUserId(string response){
-			if (response == "") return;
-			response = JsonHelper.fixJson (response);
-			DungeonUserModel[] dungeonsUserModel = JsonHelper.FromJson<DungeonUserModel> (response);
-			print (dungeonsUserModel);
+			if (response == "")
+				return;
+			DungeonUserModel dungeonUserModel = JsonUtility.FromJson<DungeonUserModel>(response);
+			print (dungeonUserModel);
+			getActiveCallback (dungeonUserModel,"");
 		}
 		void CallBackGetLostDungeonsByUserId(string response){
 			if (response == "") return;

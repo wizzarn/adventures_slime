@@ -20,6 +20,7 @@ namespace ApiController{
 		public string shape;
 		public string eye;
 		public string color;
+		public string status;
 		public UserModel(){
 		}
 
