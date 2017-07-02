@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
 	public void DungeonScene(){
 		StartCoroutine(ChangeScene(3));
 	}
+	public void TrainScene(){
+		StartCoroutine(ChangeScene(9));
+	}
 	public void MainScene(){
 		StartCoroutine(ChangeScene(1));
 	}

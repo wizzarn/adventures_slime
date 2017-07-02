@@ -28,7 +28,7 @@ public class OnLoadMyStatsScene : MonoBehaviour {
 		txtObjets [6].GetComponent<Text> ().text = response.tired_points;
 		txtObjets [7].GetComponent<Text> ().text = response.hungry_points;
 		txtObjets [8].GetComponent<Text> ().text = response.status;
-		txtObjets [9].GetComponent<Text> ().text = response.hp;
+		txtObjets [9].GetComponent<Text> ().text = response.hp + " / " + response.max_hp;
 		txtObjets [10].GetComponent<Text> ().text = response.armor;
 		print (response);
 	}
