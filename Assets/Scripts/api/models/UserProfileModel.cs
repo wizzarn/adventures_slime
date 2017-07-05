@@ -11,10 +11,12 @@ namespace ApiController{
 		public string level;
 		public string experience;
 		public string hp;
+		public string max_hp;
 		public string mana;
 		public string agi;
 		public string str;
 		public string inte;
+		public string spending_points;
 		public string phys_dmg;
 		public string magic_dmg;
 		public string armor;
@@ -38,10 +40,12 @@ namespace ApiController{
 			 string level,
 			 string experience,
 			 string hp,
+			 string max_hp,
 			 string mana,
 			 string agi,
 			 string str,
 			 string inte,
+			 string spending_points,
 			 string phys_dmg,
 			 string magic_dmg,
 			 string armor,
@@ -62,10 +66,12 @@ namespace ApiController{
 			this.level=level;
 			this.experience=experience;
 			this.hp=hp;
+			this.max_hp = max_hp;
 			this.mana=mana;
 			this.agi=agi;
 			this.str=str;
 			this.inte=inte;
+			this.spending_points = spending_points;
 			this.phys_dmg=phys_dmg;
 			this.magic_dmg=magic_dmg;
 			this.armor=armor;

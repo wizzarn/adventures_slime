@@ -7,8 +7,11 @@ namespace ApiController{
 	public class UserProfileController : MonoBehaviour
 	{
 		public delegate void CallBack(UserProfileModel result);
+		public delegate void CallBackUpdateStats(UserProfileModel result, string errorString);
+
 		public HttpHandler httpHandlerScript = new HttpHandler();
 		CallBack getByUserIdCallback;
+		CallBackUpdateStats updateStatsCallback;
 		public UserProfileController ()
 		{
 		}
@@ -85,6 +88,19 @@ namespace ApiController{
 
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/update/"+id,CallBackUpdate,form);
 		}
+		public void updateStats(UserProfileModel userProfileModel, CallBackUpdateStats callback){
+			this.updateStatsCallback = callback;
+			WWWForm form = new WWWForm();
+			form.AddField("user_id",Token.GetUserId());
+			form.AddField ("session",Token.GetToken());
+			form.AddField("max_hp",userProfileModel.max_hp);
+			form.AddField("agi",userProfileModel.agi);
+			form.AddField("str",userProfileModel.str);
+			form.AddField("inte",userProfileModel.inte);
+			form.AddField("spending_points",userProfileModel.spending_points);
+
+			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/updateStats",CallBackUpdateStats_,form);
+		}
 		public void delete(string id){
 			WWWForm form = new WWWForm();
 			httpHandlerScript.POST(Config.apiUrl+"usersProfiles/delete/"+id,CallBackDelete,form);
@@ -115,6 +131,14 @@ namespace ApiController{
 				return;
 			UserProfileModel user = JsonUtility.FromJson<UserProfileModel>(response);
 			print (user);
+		}
+		void CallBackUpdateStats_(string response){
+			if (response == "" || response == "invalid_session") {
+				updateStatsCallback (new UserProfileModel (), response);
+				return;
+			}
+			UserProfileModel user = JsonUtility.FromJson<UserProfileModel>(response);
+			updateStatsCallback (user,"");
 		}
 		void CallBackCreateCharacter(string response){
 			if (response == "" || response == "invalid_token")
