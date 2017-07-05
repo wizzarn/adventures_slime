@@ -133,7 +133,7 @@ namespace AdventureSlimes {
 				if( slime_body != null ) {
 					Renderer rend = slime_body.GetComponent<Renderer>();
 					Material newMat = Resources.Load( this.bodyDir, typeof( Material ) ) as Material;
-					newMat.renderQueue = newMat.renderQueue - 20;
+					//newMat.renderQueue = newMat.renderQueue - 20;
 					rend.material = newMat;
 				} else {
 					Debug.LogError( this.GetType() + ": slime prefab does not have slime_body child in fbx child" );
@@ -143,7 +143,7 @@ namespace AdventureSlimes {
 				if( slime_eyes != null ) {
 					Renderer rend = slime_eyes.GetComponent<Renderer>();
 					Material newMat = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-					newMat.renderQueue = newMat.renderQueue + 10;
+					//newMat.renderQueue = newMat.renderQueue + 10;
 					rend.material = newMat;
 				} else {
 					Debug.LogError( this.GetType() + ": slime prefab does not have slime_eyes child in fbx child" );
@@ -153,7 +153,7 @@ namespace AdventureSlimes {
 				if( slime_eyebrows != null ) {
 					Renderer rend = slime_eyebrows.GetComponent<Renderer>();
 					Material newMat = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-					newMat.renderQueue = newMat.renderQueue + 10;
+					//newMat.renderQueue = newMat.renderQueue + 10;
 					rend.material = newMat;
 				} else {
 					Debug.LogError( this.GetType() + ": slime prefab does not have slime_eyebrows child in fbx child" );
@@ -163,7 +163,7 @@ namespace AdventureSlimes {
 				if( slime_pupils != null ) {
 					Renderer rend = slime_pupils.GetComponent<Renderer>();
 					Material newMat = Resources.Load( this.eyesDir, typeof(Material) ) as Material;
-					newMat.renderQueue = newMat.renderQueue + 15;
+					//newMat.renderQueue = newMat.renderQueue + 15;
 					rend.material = newMat;
 				} else {
 					Debug.LogError( this.GetType() + ": slime prefab does not have slime_pupils child in fbx child" );
