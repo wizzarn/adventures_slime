@@ -126,6 +126,9 @@ namespace ApiController{
 				Token.SaveUser (user.nickname, user.user_id, user.remember_token);
 				Token.SaveCustomField ("sleeping", user.sleeping);
 				Token.SaveCustomField ("status", user.status);
+				Token.SaveCustomField ("shape", user.shape);
+				Token.SaveCustomField ("color", user.color);
+				Token.SaveCustomField ("eye", user.eye);
 				print (response);
 				if (user.shape == null || user.shape == "") {
 					gameManager.CreateCharacterScene ();

@@ -66,6 +66,9 @@ namespace AdventureSlimes {
 				return;
 			}
 
+			_bodyShape = Token.GetCustomField("shape");
+			_colorBody = Token.GetCustomField("color");
+			_eyesType = Token.GetCustomField("eye");
 			this.UpdateSlimeModel();
 
 		}

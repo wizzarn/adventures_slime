@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour {
 	public void CreateCharacterScene(){
 		StartCoroutine(ChangeScene(8));
 	}
+	public void FoodScene(){
+		StartCoroutine(ChangeScene(10));
+	}
 	public void LoginScene(){
 		StartCoroutine(ChangeScene(6));
 	}
